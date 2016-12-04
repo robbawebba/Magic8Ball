@@ -9,7 +9,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@slack/client": "^3.6.1",
     "botkit": "^0.4.2"
   }
 }
