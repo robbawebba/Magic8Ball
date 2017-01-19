@@ -1,5 +1,4 @@
 var Botkit = require('botkit');
-var os = require('os');
 var fs = require('fs');
 
 var responses = ["It is certain",
