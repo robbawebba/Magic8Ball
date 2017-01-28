@@ -1,5 +1,6 @@
 var Botkit = require('botkit');
 var fs = require('fs');
+var hash = require('string-hash')
 
 var responses = ["It is certain",
 "It is decidedly so",
@@ -82,13 +83,14 @@ controller.hears(['hello', '(^hi)'], 'direct_message,direct_mention,mention', fu
 
 controller.hears(['(.*\\?)'], 'direct_message,direct_mention,mention', function (bot, message) {
     bot.botkit.log(message.text)
-    bot.reply(message, prediction());
+    bot.reply(message, prediction(message.text));
 });
 
-// choose a response based on a random number.
+// choose a response based on the hash of the user input
 // Future direction: choose response based on a hash of user's input?
-function prediction() {
-  rand = Math.floor(Math.random() * responses.length);
+function prediction(text) {
+  text = text + String(Date.now()); // Adds the time to help randomize the hash
+  rand = hash(text) % responses.length;
   bot.botkit.log(rand);
   return String(responses[rand]);
 }
