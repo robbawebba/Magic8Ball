@@ -35,9 +35,9 @@ if (!process.env.token_path) {
 }
 
 // Load slack token from file
-fs.readFile(process.env.token_path, function (err, data) {
+fs.readFile(process.env.TOKEN_PATH, function (err, data) {
   if (err) {
-    console.log('Error: Specify token in token_path file')
+    console.log('Error: Specify token in token_path file: '+ err)
     process.exit(1)
   }
   data = String(data)
