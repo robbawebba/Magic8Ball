@@ -29,30 +29,44 @@ var controller = Botkit.slackbot({
 var bot;
 var token;
 
-if (!process.env.TOKEN_PATH) {
-  console.log('Error: Specify token_path in environment');
+if (process.env.TOKEN_PATH) {
+  // Load slack token from file
+  fs.readFile(process.env.TOKEN_PATH, function (err, data) {
+    if (err) {
+      console.log('Error: Specify token in token_path file: '+ err)
+      process.exit(1)
+    }
+    data = String(data)
+    data = data.replace(/\s/g, '')
+
+    bot = controller.spawn({
+      token: data
+    }).startRTM(function (err) {
+      if (err) {
+        throw new Error(err)
+      }
+    });
+
+    token = data;
+  })
+} else if(process.env.TOKEN) {
+    data = process.env.TOKEN
+    data = data.replace(/\s/g, '')
+
+    bot = controller.spawn({
+      token: data
+    }).startRTM(function (err) {
+      if (err) {
+        throw new Error(err)
+      }
+    });
+
+    token = data;
+} else {
+  console.log('Error: Specify TOKEN or TOKEN_PATH in environment');
   process.exit(1);
 }
 
-// Load slack token from file
-fs.readFile(process.env.TOKEN_PATH, function (err, data) {
-  if (err) {
-    console.log('Error: Specify token in token_path file: '+ err)
-    process.exit(1)
-  }
-  data = String(data)
-  data = data.replace(/\s/g, '')
-
-  bot = controller.spawn({
-    token: data
-  }).startRTM(function (err) {
-    if (err) {
-      throw new Error(err)
-    }
-  });
-
-  token = data;
-})
 
 controller.hears(['hello', '(^hi)'], 'direct_message,direct_mention,mention', function (bot, message) {
 
