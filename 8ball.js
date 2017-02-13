@@ -1,6 +1,7 @@
 var Botkit = require('botkit');
 var fs = require('fs');
-var hash = require('string-hash')
+var hash = require('string-hash');
+var http = require('http')
 
 var responses = ["It is certain",
 "It is decidedly so",
@@ -22,6 +23,12 @@ var responses = ["It is certain",
 "My sources say no",
 "Outlook not so good",
 "Very doubtful"];
+
+http.createServer(function (request, response) {
+  response.writeHead(200);
+  response.end();
+}).listen(process.env.PORT || 5000)
+
 
 var controller = Botkit.slackbot({
   debug: process.env.debug,
