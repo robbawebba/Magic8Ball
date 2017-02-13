@@ -4,7 +4,8 @@
   "description": "",
   "main": "8ball.js",
   "scripts": {
-    "start": "set TOKEN_PATH=./token&& node 8ball.js",
+    "start": "node 8ball.js",
+    "start-windows": "set TOKEN_PATH=./token&& node 8ball.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",

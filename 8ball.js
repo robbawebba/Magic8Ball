@@ -29,7 +29,7 @@ var controller = Botkit.slackbot({
 var bot;
 var token;
 
-if (!process.env.token_path) {
+if (!process.env.TOKEN_PATH) {
   console.log('Error: Specify token_path in environment');
   process.exit(1);
 }
